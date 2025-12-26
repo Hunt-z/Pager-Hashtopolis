@@ -48,20 +48,6 @@ If you don't have Hashtopolis installed yet, follow the official installation gu
 
 **📖 Installation Guide:** https://docs.hashtopolis.org/installation_guidelines/basic_install/
 
-#### Quick Setup Summary:
-```bash
-# Install dependencies (Ubuntu/Debian)
-sudo apt update
-sudo apt install apache2 mysql-server php php-mysql php-gd php-curl
-
-# Download Hashtopolis
-cd /var/www/html
-sudo git clone https://github.com/hashtopolis/server.git hashtopolis
-
-# Configure database and complete web installer
-# Navigate to: http://your-server-ip/hashtopolis/install
-```
-
 ### Step 2: Configure Hashtopolis
 
 #### 2.1 Generate API Key
