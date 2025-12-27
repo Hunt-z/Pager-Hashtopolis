@@ -1,9 +1,9 @@
 #!/bin/bash
 # Title: Hashtopolis Handshake Upload
 # Description: Automatically uploads captured handshakes to Hashtopolis server via API
-# Author: Your_Name
-# Version: 2.2
-# Category: Pineapple-Pager
+# Author: Huntz
+# Version: 1.0
+# Category: handshake_captured
 #
 # Requirements:
 # - Active internet connection
