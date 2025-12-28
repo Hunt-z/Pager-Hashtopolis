@@ -86,6 +86,27 @@ if ! echo "$AUTH_TEST" | jq -e '.response == "OK"' >/dev/null 2>&1; then
 fi
 
 # =============================================================================
+# EXTRACT SSID FROM PCAP
+# =============================================================================
+
+PCAP="$_ALERT_HANDSHAKE_PCAP_PATH"
+
+# Extract SSID from beacon frames (Your logic)
+# Note: Ensure tcpdump is installed on the system running this
+SSID=$(tcpdump -r "$PCAP" -e -I -s 256 2>/dev/null \
+  | sed -n 's/.*Beacon (\([^)]*\)).*/\1/p' \
+  | head -n 1)
+
+# Fallback if SSID not found or empty
+if [[ -z "$SSID" ]]; then
+    SSID="UNKNOWN_SSID"
+fi
+
+# Sanitize SSID to remove spaces or special chars that might break the task name
+SSID=$(echo "$SSID" | tr -dc 'a-zA-Z0-9_-')
+
+
+# =============================================================================
 # VALIDATE HASHCAT FILE
 # =============================================================================
 
@@ -95,7 +116,7 @@ if [[ ! -f "$_ALERT_HANDSHAKE_HASHCAT_PATH" ]]; then
 fi
 
 TIMESTAMP=$(date +%s)
-UNIQUE_NAME="WPA_${_ALERT_HANDSHAKE_AP_MAC_ADDRESS}_${TIMESTAMP}"
+UNIQUE_NAME="WPA_${SSID}_${_ALERT_HANDSHAKE_AP_MAC_ADDRESS}_${TIMESTAMP}"
 
 # =============================================================================
 # ENCODE FILE TO BASE64
@@ -159,6 +180,8 @@ if [[ -z "$HASHLIST_ID" ]]; then
     exit 1
 fi
 
+
+
 # =============================================================================
 # RUN PRECONFIGURED TASK
 # =============================================================================
@@ -167,7 +190,7 @@ TASK_JSON=$(cat <<EOF
 {
   "section": "task",
   "request": "runPretask",
-  "name": "WPA_${_ALERT_HANDSHAKE_AP_MAC_ADDRESS}",
+  "name": "$UNIQUE_NAME",
   "hashlistId": $HASHLIST_ID,
   "pretaskId": $PRETASK_ID,
   "crackerVersionId": $CRACKER_VERSION_ID,
