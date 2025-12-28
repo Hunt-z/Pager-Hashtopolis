@@ -1,4 +1,5 @@
-# Hashtopolis Handshake Upload - WiFi Pineapple Pager Payload
+# Hashtopolis Handshake Upload
+WiFi Pineapple Pager Payload
 
 Automatically upload captured WPA/WPA2 handshakes from your WiFi Pineapple to a Hashtopolis distributed cracking server.
 
