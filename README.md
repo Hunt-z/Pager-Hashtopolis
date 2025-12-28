@@ -184,7 +184,7 @@ This is the modern standard for WPA handshake cracking and is supported by all c
 
 Uploaded hashlists are automatically named:
 ```
-WPA_[AP_MAC_ADDRESS]_[UNIX_TIMESTAMP]
+WPA_[SSID]_[AP_MAC_ADDRESS]_[UNIX_TIMESTAMP]
 ```
 
 Example: `WPA_AA:BB:CC:DD:EE:FF_1766719274`
